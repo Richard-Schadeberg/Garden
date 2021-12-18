@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public struct CellState {
     public bool Water;
-    public int contents;
+    public CellContents contents;
     public int elevation;
     public Wetness wetness;
     public Shadiness shadiness;

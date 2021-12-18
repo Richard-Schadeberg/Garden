@@ -364,13 +364,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b089ce8e1101464286e963f44d27c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 12
-  height: 9
+  width: 9
+  height: 6
   cellPrefab: {fileID: 1996309955}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   touchedColor: {r: 1, g: 0, b: 1, a: 1}
   cellLabelPrefab: {fileID: 1093430560}
   controlledCamera: {fileID: 963194227}
+  controlledCameraTilt: 15
 --- !u!4 &911146835
 Transform:
   m_ObjectHideFlags: 0
