@@ -32,7 +32,14 @@ public class HexGrid : MonoBehaviour {
 		cell.transform.SetParent(transform, false);
 		cell.transform.localPosition = position;
 		cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-
+		SetCellNeighbours(cell,x,z,i);
+		Text label = Instantiate<Text>(cellLabelPrefab);
+		label.rectTransform.SetParent(gridCanvas.transform, false);
+		label.rectTransform.anchoredPosition =
+			new Vector2(position.x, position.z);
+		label.text = cell.coordinates.ToStringOnSeparateLines();
+	}
+	void SetCellNeighbours(HexCell cell,int x,int z,int i) {
 		if (x > 0) {
 			cell.SetNeighbor(HexDirection.W, cells[i - 1]);
 		}
@@ -50,11 +57,6 @@ public class HexGrid : MonoBehaviour {
 				}
 			}
 		}
-		Text label = Instantiate<Text>(cellLabelPrefab);
-		label.rectTransform.SetParent(gridCanvas.transform, false);
-		label.rectTransform.anchoredPosition =
-			new Vector2(position.x, position.z);
-		label.text = cell.coordinates.ToStringOnSeparateLines();
 	}
 	public Text cellLabelPrefab;
 	public Camera controlledCamera;
