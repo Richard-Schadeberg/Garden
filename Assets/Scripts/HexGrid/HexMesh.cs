@@ -37,6 +37,16 @@ public class HexMesh : MonoBehaviour {
 				center + HexMetrics.corners[i],
 				center + HexMetrics.corners[i + 1]
 			);
+			AddTriangle(
+				center + HexMetrics.corners[i],
+				center + HexMetrics.corners[i] + new Vector3(0,-10*HexMetrics.elevationDistance,0),
+				center + HexMetrics.corners[i + 1]
+			);
+			AddTriangle(
+				center + HexMetrics.corners[i+1],
+				center + HexMetrics.corners[i] + new Vector3(0,-10*HexMetrics.elevationDistance,0),
+				center + HexMetrics.corners[i + 1] + new Vector3(0,-10*HexMetrics.elevationDistance,0)
+			);
 		}
 	}
     void AddTriangle (Vector3 v1, Vector3 v2, Vector3 v3) {

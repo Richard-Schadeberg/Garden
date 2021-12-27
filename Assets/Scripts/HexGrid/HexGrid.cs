@@ -22,6 +22,9 @@ public class HexGrid : MonoBehaviour {
 		hexMesh.Triangulate(cells);
 		moveCamera();
 	}
+	public void Triangulate() {
+		hexMesh.Triangulate(cells);
+	}
 	void CreateCell (int x, int z, int i) {
 		Vector3 position;	
         position.x = (x + z * 0.5f - z / 2) * (HexMetrics.innerRadius * 2f);
@@ -32,6 +35,7 @@ public class HexGrid : MonoBehaviour {
 		cell.transform.SetParent(transform, false);
 		cell.transform.localPosition = position;
 		cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
+		cell.hexGrid = this;
 		SetCellNeighbours(cell,x,z,i);
 		Text label = Instantiate<Text>(cellLabelPrefab);
 		label.rectTransform.SetParent(gridCanvas.transform, false);
@@ -58,6 +62,13 @@ public class HexGrid : MonoBehaviour {
 			}
 		}
 	}
+	public HexCell GetCellAt (Vector3 position) {
+		position = transform.InverseTransformPoint(position);
+		HexCoordinates coordinates = HexCoordinates.FromPosition(position);
+		int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+		HexCell cell = cells[index];
+		return cell;
+	}
 	public Text cellLabelPrefab;
 	public Camera controlledCamera;
 	public float controlledCameraTilt = 15;
@@ -67,9 +78,9 @@ public class HexGrid : MonoBehaviour {
 		float topAngle    = 90 + (fov/2) + controlledCameraTilt;
 		float bottomSlope = (float)Math.Tan(bottomAngle * Math.PI/180);
 		float topSlope    = (float)Math.Tan(topAngle    * Math.PI/180);
-		float camZ = hexgridHeight() * topSlope / (topSlope - bottomSlope);
+		float camZ = (hexgridHeight()+16) * topSlope / (topSlope - bottomSlope);
 		float camY = camZ * bottomSlope;
-		camZ += hexGridBottom();
+		camZ += hexGridBottom()-4;
 		float camX = hexGridLeft() + (hexGridWidth()/2);
 		Vector3 cameraVector = new Vector3(camX,camY,camZ);
 		controlledCamera.transform.position = transform.position + cameraVector;
@@ -91,4 +102,9 @@ public class HexGrid : MonoBehaviour {
 	float hexGridLeft() {
 		return -HexMetrics.innerRadius;
 	}
+	public Color waterColour;
+	public Color waterSourceColour;
+	public Color wetColour;
+	public Color dampColour;
+	public Color shadeColour;
 }
