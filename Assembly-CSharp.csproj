@@ -48,7 +48,6 @@
      <Compile Include="Assets\Scripts\Game\CellContents.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexCoordinates.cs" />
      <Compile Include="Assets\Scripts\HexGrid\FloatToString.cs" />
-     <Compile Include="Assets\Scripts\Utility\ColourTools.cs" />
      <None Include="Assets\Materials\GridShader.shader" />
     <Reference Include="UnityEngine">
         <HintPath>G:/Programs/Unity/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

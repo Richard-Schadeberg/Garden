@@ -104,7 +104,11 @@ public class HexGrid : MonoBehaviour {
 	}
 	public Color waterColour;
 	public Color waterSourceColour;
-	public Color wetColour;
+	public Color dryColour;
 	public Color dampColour;
+	public Color wetColour;
+	public Color sunnyColour;
 	public Color shadeColour;
+	public Color darkColour;
+	public Color pathColour;
 }

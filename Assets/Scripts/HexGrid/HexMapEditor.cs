@@ -24,6 +24,7 @@ public class HexMapEditor : MonoBehaviour {
 				break;
 			case Tool.Elevation:
 				touched.transform.position = new Vector3(touched.transform.position.x,elevation * HexMetrics.elevationDistance,touched.transform.position.z);
+				touched.cellState.elevation = elevation;
 				break;
 			case Tool.Water:
 				touched.cellState.Water = true;

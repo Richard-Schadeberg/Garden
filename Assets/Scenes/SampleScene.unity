@@ -1206,7 +1206,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1614,7 +1614,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &911146833
 GameObject:
@@ -1650,12 +1650,14 @@ MonoBehaviour:
   cellPrefab: {fileID: 1996309955}
   cellLabelPrefab: {fileID: 1093430560}
   controlledCamera: {fileID: 963194227}
-  controlledCameraTilt: 15
+  controlledCameraTilt: 30
   waterColour: {r: 0, g: 0.6666665, b: 1, a: 1}
   waterSourceColour: {r: 0, g: 0.3973335, b: 0.59599996, a: 1}
-  wetColour: {r: 0.496, g: 0.83200014, b: 1, a: 1}
   dampColour: {r: 0.801, g: 0.9336667, b: 1, a: 1}
-  shadeColour: {r: 0.801, g: 0.801, b: 0.801, a: 1}
+  wetColour: {r: 0.496, g: 0.83200014, b: 1, a: 1}
+  sunnyColour: {r: 1, g: 1, b: 1, a: 1}
+  shadeColour: {r: 0.799, g: 0.799, b: 0.799, a: 1}
+  darkColour: {r: 0.59599996, g: 0.59599996, b: 0.59599996, a: 1}
 --- !u!4 &911146835
 Transform:
   m_ObjectHideFlags: 0
@@ -3030,52 +3032,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806815098}
   m_CullTransparentMesh: 1
---- !u!1 &1809382705
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1809382707}
-  - component: {fileID: 1809382706}
-  m_Layer: 0
-  m_Name: CellPlant
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1809382706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809382705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d1abd92bf0b70e4495356168ba4a912, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  contentsName: 
-  illegalWetness: 
-  illegalShadiness: 
---- !u!4 &1809382707
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809382705}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97, y: 100.6, z: 11.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1849422832
 GameObject:
   m_ObjectHideFlags: 0
