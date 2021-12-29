@@ -46,14 +46,36 @@ public class HexCell : MonoBehaviour {
 	}
 	public Color GetColour() {
 		EvaluateState();
-		List<Color> colours = new List<Color>();
-		colours.Add(shadeColour(cellState.shadiness));
-		if (cellState.Water) colours.Add(hexGrid.waterColour);
-		if (cellState.Path) colours.Add(hexGrid.pathColour);
-		if (cellState.wetness==Wetness.Wet) colours.Add(hexGrid.wetColour);
-		if (cellState.wetness==Wetness.Damp) colours.Add(hexGrid.dampColour);
-		if (cellState.wetness==Wetness.Dry) colours.Add(hexGrid.dryColour);
-		return BlendColours(colours.ToArray());
+		float hue,sat,val;
+		sat=0;
+		val=0;
+		hue = 240f/360f;
+
+		if (cellState.wetness==Wetness.Wet) {
+			sat=0.4f;
+			hue = 120f/360f;
+		}
+		if (cellState.wetness==Wetness.Damp) {
+			sat=0.2f;
+			hue = 120f/360f;
+		}
+		if (cellState.wetness==Wetness.Dry) {
+			sat=0.2f;
+			hue = 33f/360f;
+		}
+		if (cellState.Water) {
+			sat=1f;
+			hue = 240f/360f;
+		}
+
+		if (cellState.shadiness==Shadiness.Sunny) val=1f;
+		if (cellState.shadiness==Shadiness.Shaded) val=0.7f;
+		if (cellState.shadiness==Shadiness.Dark) val=0.4f;
+
+		hue += coordinates.Z*1f/360f;
+		val -= coordinates.Z*1f/20f;
+
+		return Color.HSVToRGB(hue,sat,val);
 	}
 	Color BlendColours (Color[] colours) {
 		float r=0;
@@ -103,17 +125,5 @@ public class HexCell : MonoBehaviour {
 			if (diff>0) return diff;
 		}
 		return 0;
-	}
-	Color shadeColour(Shadiness shadiness) {
-		switch (shadiness) {
-			case (Shadiness.Sunny):
-				return hexGrid.sunnyColour;
-			case (Shadiness.Shaded):
-				return hexGrid.shadeColour;
-			case (Shadiness.Dark):
-				return hexGrid.darkColour;
-			default:
-				return hexGrid.sunnyColour;
-		}
 	}
 }
