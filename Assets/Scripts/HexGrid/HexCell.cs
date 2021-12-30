@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 public class HexCell : MonoBehaviour {
 	public HexCoordinates coordinates;
 	public CellState cellState;
+	public HexImages hexImage;
 	[SerializeField]
 	HexCell[] neighbors;
 	public HexGrid hexGrid;
@@ -52,15 +54,15 @@ public class HexCell : MonoBehaviour {
 		hue = 240f/360f;
 
 		if (cellState.wetness==Wetness.Wet) {
-			sat=0.4f;
+			sat=0.04f;
 			hue = 120f/360f;
 		}
 		if (cellState.wetness==Wetness.Damp) {
-			sat=0.2f;
+			sat=0.02f;
 			hue = 120f/360f;
 		}
 		if (cellState.wetness==Wetness.Dry) {
-			sat=0.2f;
+			sat=0.06f;
 			hue = 33f/360f;
 		}
 		if (cellState.Water) {
@@ -73,7 +75,7 @@ public class HexCell : MonoBehaviour {
 		if (cellState.shadiness==Shadiness.Dark) val=0.4f;
 
 		hue += coordinates.Z*1f/360f;
-		val -= coordinates.Z*1f/20f;
+		val -= coordinates.Z*1f/50f;
 
 		return Color.HSVToRGB(hue,sat,val);
 	}
@@ -125,5 +127,12 @@ public class HexCell : MonoBehaviour {
 			if (diff>0) return diff;
 		}
 		return 0;
+	}
+	public void Save (BinaryWriter writer) {
+		writer.Write(cellState.elevation);
+	}
+
+	public void Load (BinaryReader reader) {
+		cellState.elevation = reader.ReadInt32();
 	}
 }

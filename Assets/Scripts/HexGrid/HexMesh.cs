@@ -34,7 +34,9 @@ public class HexMesh : MonoBehaviour {
 	
 	void Triangulate (HexCell cell) {
 		Color color = cell.GetColour();
-		Vector3 center = cell.transform.localPosition;
+		Vector3 center = cell.transform.localPosition + new Vector3(0,cell.cellState.elevation*GameConstants.elevationDistance,0);
+		cell.hexImage.gameObject.transform.position = center;
+		cell.hexImage.reflectState(cell.cellState);
 		for (int i = 0; i < 6; i++) {
 			AddTriangle(
 				center,
@@ -44,14 +46,14 @@ public class HexMesh : MonoBehaviour {
 			);
 			AddTriangle(
 				center + HexMetrics.corners[i],
-				center + HexMetrics.corners[i] + new Vector3(0,-10*HexMetrics.elevationDistance,0),
+				center + HexMetrics.corners[i] + new Vector3(0,-10*GameConstants.elevationDistance,0),
 				center + HexMetrics.corners[i + 1],
 				color
 			);
 			AddTriangle(
 				center + HexMetrics.corners[i+1],
-				center + HexMetrics.corners[i] + new Vector3(0,-10*HexMetrics.elevationDistance,0),
-				center + HexMetrics.corners[i + 1] + new Vector3(0,-10*HexMetrics.elevationDistance,0),
+				center + HexMetrics.corners[i] + new Vector3(0,-10*GameConstants.elevationDistance,0),
+				center + HexMetrics.corners[i + 1] + new Vector3(0,-10*GameConstants.elevationDistance,0),
 				color
 			);
 		}

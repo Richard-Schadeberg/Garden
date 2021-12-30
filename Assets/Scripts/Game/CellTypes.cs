@@ -2,6 +2,7 @@ using UnityEngine;
 
 [System.Serializable]
 public struct CellState {
+    public bool Valid;
     public bool Water;
     public bool Path;
     public CellContents contents;

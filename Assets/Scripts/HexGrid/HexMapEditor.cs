@@ -1,12 +1,29 @@
 using UnityEngine;
+using System.IO;
 
 public class HexMapEditor : MonoBehaviour {
 	public HexGrid hexGrid;
-	void Awake () {
+	void Start () {
+		Load();
 	}
 	void Update () {
 		if (Input.GetMouseButton(0)) {
 			HandleInput();
+		}
+	}
+	public void Save() {
+		string path = Path.Combine(Application.persistentDataPath, "test.map");
+		using (
+			BinaryWriter writer =
+				new BinaryWriter(File.Open(path, FileMode.Create))
+		) {
+			hexGrid.Save(writer);
+		}
+	}
+	public void Load() {
+		string path = Path.Combine(Application.persistentDataPath, "test.map");
+		using (BinaryReader reader = new BinaryReader(File.OpenRead(path))) {
+			hexGrid.Load(reader);
 		}
 	}
 	void HandleInput () {
@@ -23,7 +40,7 @@ public class HexMapEditor : MonoBehaviour {
 			case Tool.None:
 				break;
 			case Tool.Elevation:
-				touched.transform.position = new Vector3(touched.transform.position.x,elevation * HexMetrics.elevationDistance,touched.transform.position.z);
+				// touched.transform.position = new Vector3(touched.transform.position.x,elevation * HexMetrics.elevationDistance,touched.transform.position.z);
 				touched.cellState.elevation = elevation;
 				break;
 			case Tool.Water:
@@ -47,6 +64,9 @@ public class HexMapEditor : MonoBehaviour {
 	public void EditElevation(float i) {
 		currentTool = Tool.Elevation;
 		elevation = (int)i;
+	}
+	public void RandomizeElevation() {
+		hexGrid.RandomizeElevation();
 	}
 	public void SetTool(int tool) {currentTool = (Tool)tool;}
 	public void SetSeason(int season) {currentSeason = (Season)season;}

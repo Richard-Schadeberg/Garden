@@ -1,13 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.IO;
 using System;
+using Random=UnityEngine.Random;
 public class HexGrid : MonoBehaviour {
 	public int width = 6;
 	public int height = 6;
 	public HexCell cellPrefab;
+	public HexImages spritePrefab;
     HexMesh hexMesh;
     HexCell[] cells;
 	Canvas gridCanvas;
+	public CameraPose cameraPose;
 	void Awake () {
 		hexMesh = GetComponentInChildren<HexMesh>();
 		gridCanvas = GetComponentInChildren<Canvas>();
@@ -20,7 +25,7 @@ public class HexGrid : MonoBehaviour {
 	}
     void Start () {
 		hexMesh.Triangulate(cells);
-		moveCamera();
+		cameraPose.placeCamera(PointsForCamera());
 	}
 	public void Triangulate() {
 		hexMesh.Triangulate(cells);
@@ -32,16 +37,12 @@ public class HexGrid : MonoBehaviour {
 		position.z = z * (HexMetrics.outerRadius * 1.5f);
 
 		HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
+		cell.hexImage = Instantiate<HexImages>(spritePrefab);
 		cell.transform.SetParent(transform, false);
 		cell.transform.localPosition = position;
 		cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
 		cell.hexGrid = this;
 		SetCellNeighbours(cell,x,z,i);
-		Text label = Instantiate<Text>(cellLabelPrefab);
-		label.rectTransform.SetParent(gridCanvas.transform, false);
-		label.rectTransform.anchoredPosition =
-			new Vector2(position.x, position.z);
-		label.text = cell.coordinates.ToStringOnSeparateLines();
 	}
 	void SetCellNeighbours(HexCell cell,int x,int z,int i) {
 		if (x > 0) {
@@ -69,46 +70,65 @@ public class HexGrid : MonoBehaviour {
 		HexCell cell = cells[index];
 		return cell;
 	}
-	public Text cellLabelPrefab;
-	public Camera controlledCamera;
-	public float controlledCameraTilt = 15;
-	void moveCamera() {
-		float fov = controlledCamera.fieldOfView;
-		float bottomAngle = 90 - (fov/2) + controlledCameraTilt;
-		float topAngle    = 90 + (fov/2) + controlledCameraTilt;
-		float bottomSlope = (float)Math.Tan(bottomAngle * Math.PI/180);
-		float topSlope    = (float)Math.Tan(topAngle    * Math.PI/180);
-		float camZ = (hexgridHeight()+16) * topSlope / (topSlope - bottomSlope);
-		float camY = camZ * bottomSlope;
-		camZ += hexGridBottom()-4;
-		float camX = hexGridLeft() + (hexGridWidth()/2);
-		Vector3 cameraVector = new Vector3(camX,camY,camZ);
-		controlledCamera.transform.position = transform.position + cameraVector;
-		controlledCamera.transform.rotation = Quaternion.Euler(90-controlledCameraTilt,0,0);
+	Vector3[] PointsForCamera() {
+		List<Vector3> points = new List<Vector3>();
+		Vector3[] corners = new Vector3[4];
+		corners[0] = transform.position;
+		corners[1] = corners[0] + new Vector3(0,0,hexgridHeight());
+		corners[2] = corners[0] + new Vector3(hexgridWidth(),0,0);
+		corners[3] = corners[0] + new Vector3(hexgridWidth(),0,hexgridHeight());
+		Vector3[] elevations = new Vector3[GameConstants.maxElevation+2];
+		for (int i = 0; i <= GameConstants.maxElevation+1; i++) {
+			elevations[i] = new Vector3(0,i*GameConstants.elevationDistance,0);
+		}
+		Vector3[] hexCorners = HexMetrics.corners;
+		foreach (Vector3 corner in corners) {
+			foreach (Vector3 elevation in elevations) {
+				foreach (Vector3 hexCorner in hexCorners) {
+					points.Add(corner + elevation + hexCorner);
+				}
+			}
+		}
+		return points.ToArray();
 	}
 	float hexgridHeight() {
-		float cellHeight = 2f * HexMetrics.outerRadius;
-		float overlap = 0.5f * HexMetrics.outerRadius;
-		return height * (cellHeight - overlap) + overlap;
+		float cellHeight = 1.5f * HexMetrics.outerRadius;
+		return (height-1) * cellHeight;
 	}
-	float hexGridWidth() {
+	float hexgridWidth() {
 		float cellWidth = 2f * HexMetrics.innerRadius;
-		float overlap = HexMetrics.innerRadius;
-		return width * cellWidth + overlap;
+		return (width-0.5f) * cellWidth;
 	}
-	float hexGridBottom() {
-		return -HexMetrics.outerRadius;
+	public void Save (BinaryWriter writer) {
+		for (int i = 0; i < cells.Length; i++) {
+			cells[i].Save(writer);
+		}
 	}
-	float hexGridLeft() {
-		return -HexMetrics.innerRadius;
+
+	public void Load (BinaryReader reader) {
+		for (int i = 0; i < cells.Length; i++) {
+			cells[i].Load(reader);
+		}
+		Triangulate();
 	}
-	public Color waterColour;
-	public Color waterSourceColour;
-	public Color dryColour;
-	public Color dampColour;
-	public Color wetColour;
-	public Color sunnyColour;
-	public Color shadeColour;
-	public Color darkColour;
-	public Color pathColour;
+	public void RandomizeElevation() {
+		foreach (HexCell cell in cells) {
+			float w = 2f;
+			float max = 1 + (float)cell.coordinates.Z*(((float)GameConstants.maxElevation+w-2f)/((float)height-1f));
+			float min = max - w;
+			float rand = Random.Range(min,max);
+			int elevate = (int)Math.Round(rand);
+			if (elevate < 0) elevate = 0;
+			if (elevate > GameConstants.maxElevation) elevate = GameConstants.maxElevation;
+			cell.cellState.elevation = elevate;
+
+			// int min = (cell.coordinates.Z+1)/2-1;
+			// int max = (cell.coordinates.Z+1)/2+1;
+			// int elevate = Random.Range(min,max);
+			// if (elevate < 0) elevate = 0;
+			// if (elevate > 3) elevate = 3;
+			// cell.cellState.elevation = elevate;
+		}
+		Triangulate();
+	}
 }
