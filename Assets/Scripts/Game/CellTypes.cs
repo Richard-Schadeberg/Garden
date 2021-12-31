@@ -1,11 +1,16 @@
 using UnityEngine;
 
 [System.Serializable]
+public struct OccupierConditions {
+    public bool[] wetness;
+    public bool[] shadiness;
+}
+[System.Serializable]
 public struct CellState {
     public bool Valid;
     public bool Water;
     public bool Path;
-    public CellContents contents;
+    public CellOccupier occupier;
     public int elevation;
     public Wetness wetness;
     public Shadiness shadiness;

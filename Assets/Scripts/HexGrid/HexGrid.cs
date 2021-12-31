@@ -38,6 +38,7 @@ public class HexGrid : MonoBehaviour {
 
 		HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
 		cell.hexImage = Instantiate<HexImages>(spritePrefab);
+		cell.hexImage.transform.SetParent(cell.transform);
 		cell.transform.SetParent(transform, false);
 		cell.transform.localPosition = position;
 		cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);

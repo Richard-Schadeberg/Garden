@@ -6,11 +6,11 @@ public class HexMapEditor : MonoBehaviour {
 	void Start () {
 		Load();
 	}
-	void Update () {
-		if (Input.GetMouseButton(0)) {
-			HandleInput();
-		}
-	}
+	// void Update () {
+	// 	if (Input.GetMouseButton(0)) {
+	// 		HandleInput();
+	// 	}
+	// }
 	public void Save() {
 		string path = Path.Combine(Application.persistentDataPath, "test.map");
 		using (
@@ -51,7 +51,6 @@ public class HexMapEditor : MonoBehaviour {
 				break;
 			case Tool.WaterSource:
 				touched.cellState.Water = true;
-				touched.cellState.contents = new CellContents("Source");
 				break;
 			case Tool.Path:
 				touched.cellState.Path = true;

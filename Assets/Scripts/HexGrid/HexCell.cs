@@ -10,6 +10,9 @@ public class HexCell : MonoBehaviour {
 	[SerializeField]
 	HexCell[] neighbors;
 	public HexGrid hexGrid;
+	public void OnMouseDown() {
+		Debug.Log(coordinates);
+	}
 	public HexCell GetNeighbor (HexDirection direction) {
 		return neighbors[(int)direction];
 	}

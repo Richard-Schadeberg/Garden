@@ -37,6 +37,8 @@ public class HexMesh : MonoBehaviour {
 		Vector3 center = cell.transform.localPosition + new Vector3(0,cell.cellState.elevation*GameConstants.elevationDistance,0);
 		cell.hexImage.gameObject.transform.position = center;
 		cell.hexImage.reflectState(cell.cellState);
+		CapsuleCollider collider = cell.GetComponent<CapsuleCollider>();
+		collider.center = new Vector3(0,cell.cellState.elevation*GameConstants.elevationDistance - collider.height/2 + collider.radius,0);
 		for (int i = 0; i < 6; i++) {
 			AddTriangle(
 				center,
