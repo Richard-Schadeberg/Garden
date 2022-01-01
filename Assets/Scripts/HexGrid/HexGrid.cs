@@ -122,13 +122,6 @@ public class HexGrid : MonoBehaviour {
 			if (elevate < 0) elevate = 0;
 			if (elevate > GameConstants.maxElevation) elevate = GameConstants.maxElevation;
 			cell.cellState.elevation = elevate;
-
-			// int min = (cell.coordinates.Z+1)/2-1;
-			// int max = (cell.coordinates.Z+1)/2+1;
-			// int elevate = Random.Range(min,max);
-			// if (elevate < 0) elevate = 0;
-			// if (elevate > 3) elevate = 3;
-			// cell.cellState.elevation = elevate;
 		}
 		Triangulate();
 	}

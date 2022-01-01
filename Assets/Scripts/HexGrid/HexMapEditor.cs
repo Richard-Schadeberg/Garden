@@ -6,11 +6,11 @@ public class HexMapEditor : MonoBehaviour {
 	void Start () {
 		Load();
 	}
-	// void Update () {
-	// 	if (Input.GetMouseButton(0)) {
-	// 		HandleInput();
-	// 	}
-	// }
+	void Update () {
+		if (Input.GetMouseButton(0)) {
+			HandleInput();
+		}
+	}
 	public void Save() {
 		string path = Path.Combine(Application.persistentDataPath, "test.map");
 		using (

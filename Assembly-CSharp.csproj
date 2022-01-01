@@ -36,25 +36,28 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\UI\ConditionIndicator.cs" />
      <Compile Include="Assets\Scripts\UI\TickDisplay.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexMetrics.cs" />
      <Compile Include="Assets\Scripts\Game\GameConstants.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexMapEditor.cs" />
      <Compile Include="Assets\Scripts\Game\GameEngine.cs" />
      <Compile Include="Assets\Scripts\Utility\CameraPose.cs" />
+     <Compile Include="Assets\Scripts\Occupiers\UIOccupier.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexMesh.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexCell.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexDirection.cs" />
+     <Compile Include="Assets\Scripts\UI\MainUI.cs" />
+     <Compile Include="Assets\Scripts\UI\OccupierInformation.cs" />
      <Compile Include="Assets\Scripts\Game\CellTypes.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexImages.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexGrid.cs" />
+     <Compile Include="Assets\Scripts\Occupiers\CellOccupier.cs" />
      <Compile Include="Assets\Scripts\HexGrid\HexCoordinates.cs" />
      <Compile Include="Assets\Scripts\Utility\SliderNumber.cs" />
-     <Compile Include="Assets\Scripts\UI\MainUI.cs" />
-     <Compile Include="Assets\Scripts\Occupiers\CellOccupier.cs" />
-     <Compile Include="Assets\Scripts\Occupiers\UIOccupier.cs" />
-     <Compile Include="Assets\Scripts\UI\OccupierInformation.cs" />
-     <Compile Include="Assets\Scripts\UI\ConditionIndicator.cs" />
+     <Compile Include="Assets\Scripts\Occupiers\Occupier.cs" />
+     <Compile Include="Assets\Scripts\Occupiers\UIWater.cs" />
+     <Compile Include="Assets\Scripts\Occupiers\UIPath.cs" />
      <None Include="Assets\Materials\GridShader.shader" />
     <Reference Include="UnityEngine">
         <HintPath>G:/Programs/Unity/2020.3.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

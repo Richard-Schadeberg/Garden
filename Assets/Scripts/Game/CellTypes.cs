@@ -6,6 +6,12 @@ public struct OccupierConditions {
     public bool[] shadiness;
 }
 [System.Serializable]
+public struct OccupierGoal {
+    public string description;
+    public bool essential;
+    public bool completed;
+}
+[System.Serializable]
 public struct CellState {
     public bool Valid;
     public bool Water;

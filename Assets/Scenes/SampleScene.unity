@@ -478,6 +478,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   occupierDisplay: {fileID: 1510553976}
+--- !u!1 &239921251 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9188671662635451449, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+  m_PrefabInstance: {fileID: 943710354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &239921252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239921251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a0786fcd8a19d49af77c7740efcd1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  occupierName: Water
+  conditions:
+    wetness: 0101010101
+    shadiness: 0101010101
+  goals:
+  - description: Connect to water source
+    essential: 1
+    completed: 0
 --- !u!1 &239977908
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +569,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &254521348 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9188671662635451449, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+  m_PrefabInstance: {fileID: 1852684180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &254521349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254521348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8565bdc9ae140344821e3490f572f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  occupierName: Path
+  conditions:
+    wetness: 0101010101
+    shadiness: 0101010101
+  goals:
+  - description: Connected to West edge
+    essential: 1
+    completed: 0
+  - description: Connected to East edge
+    essential: 0
+    completed: 0
 --- !u!1 &258205460
 GameObject:
   m_ObjectHideFlags: 0
@@ -2899,7 +2952,15 @@ PrefabInstance:
       objectReference: {fileID: 1510553976}
     - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
       propertyPath: occupierName
-      value: Water
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: conditions.wetness.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: conditions.shadiness.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
       propertyPath: conditions.wetness.Array.data[3]
@@ -2925,7 +2986,8 @@ PrefabInstance:
       propertyPath: m_Text
       value: Water
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
 --- !u!1 &962473892
 GameObject:
@@ -3924,6 +3986,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288164887}
   m_CullTransparentMesh: 1
+--- !u!114 &1293209424 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4474524436413872472, guid: 719792556620ace4aa43d8f277a0990d, type: 3}
+  m_PrefabInstance: {fileID: 493848424788751223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093f5e43e17a4c04eb35aeaff693c21f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1296640469
 GameObject:
   m_ObjectHideFlags: 0
@@ -4619,6 +4692,7 @@ MonoBehaviour:
   wetness: {fileID: 2036374132}
   shadiness: {fileID: 615104402}
   occupierName: {fileID: 1531782821}
+  tickObj: {fileID: 1293209424}
   occupier: {fileID: 0}
 --- !u!1 &1524832617
 GameObject:
@@ -5594,7 +5668,8 @@ PrefabInstance:
       propertyPath: m_Text
       value: Path
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
 --- !u!1 &1853805101 stripped
 GameObject:
@@ -6089,9 +6164,17 @@ PrefabInstance:
       propertyPath: m_Text
       value: "Double line\nSoil Dampness \U0001F604\U0001F604"
       objectReference: {fileID: 0}
+    - target: {fileID: 1781311454827127760, guid: 719792556620ace4aa43d8f277a0990d, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2010448965381738910, guid: 719792556620ace4aa43d8f277a0990d, type: 3}
       propertyPath: m_Name
       value: TickDisplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010448965381738910, guid: 719792556620ace4aa43d8f277a0990d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2170497735664254816, guid: 719792556620ace4aa43d8f277a0990d, type: 3}
       propertyPath: m_Pivot.x
@@ -6324,6 +6407,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3656672843808514516, guid: 409196e4dec7deb44a2be90f1554d561, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3656672843930263828, guid: 409196e4dec7deb44a2be90f1554d561, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -6437,5 +6524,37 @@ PrefabInstance:
       propertyPath: displayObj
       value: 
       objectReference: {fileID: 1510553976}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: goals.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: goals.Array.data[0].essential
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: goals.Array.data[1].essential
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: goals.Array.data[2].completed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: goals.Array.data[2].essential
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: goals.Array.data[0].description
+      value: Wetness
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: goals.Array.data[1].description
+      value: Shadiness
+      objectReference: {fileID: 0}
+    - target: {fileID: 9188671662635451451, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}
+      propertyPath: goals.Array.data[2].description
+      value: Group of 3 or more
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d52d6f4e616b39b4f921490d28e0c5f6, type: 3}

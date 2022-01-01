@@ -10,8 +10,14 @@ public class HexCell : MonoBehaviour {
 	[SerializeField]
 	HexCell[] neighbors;
 	public HexGrid hexGrid;
+	public void SetOccupier(Occupier occupier) {
+		if (cellState.occupier!=null) {
+			Destroy(cellState.occupier);
+		}
+		cellState.occupier = (CellOccupier)occupier;
+	}
 	public void OnMouseDown() {
-		Debug.Log(coordinates);
+		MainUI.S.CellClicked(this);
 	}
 	public HexCell GetNeighbor (HexDirection direction) {
 		return neighbors[(int)direction];

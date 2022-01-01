@@ -58,6 +58,27 @@ public class HexMesh : MonoBehaviour {
 				center + HexMetrics.corners[i + 1] + new Vector3(0,-10*GameConstants.elevationDistance,0),
 				color
 			);
+			if (cell.cellState.Path) {
+				Vector3 pathElevation = new Vector3(0,0.9f,0);
+				AddTriangle(
+					center + pathElevation,
+					center + pathElevation + HexMetrics.corners[i]*0.5f,
+					center + pathElevation + HexMetrics.corners[i + 1]*0.5f,
+					Color.magenta
+				);
+				AddTriangle(
+					center + HexMetrics.corners[i]*0.5f,
+					center + HexMetrics.corners[i + 1]*0.5f,
+					center + pathElevation + HexMetrics.corners[i]*0.5f,
+					Color.magenta
+				);
+				AddTriangle(
+					center + HexMetrics.corners[i + 1]*0.5f,
+					center + pathElevation + HexMetrics.corners[i + 1]*0.5f,
+					center + pathElevation + HexMetrics.corners[i]*0.5f,
+					Color.magenta
+				);
+			}
 		}
 	}
     void AddTriangle (Vector3 v1, Vector3 v2, Vector3 v3,Color color) {

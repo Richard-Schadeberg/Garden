@@ -4,12 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIOccupier : MonoBehaviour, IPointerClickHandler
+public class UIOccupier : Occupier, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData) {
         MainUI.S.SelectOccupier(this);
     }
-    public OccupierInformation displayObj;
-    public string occupierName;
-    public OccupierConditions conditions;
 }

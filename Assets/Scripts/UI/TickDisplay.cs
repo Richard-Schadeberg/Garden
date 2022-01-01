@@ -5,13 +5,11 @@ using UnityEngine.UI;
 
 public class TickDisplay : MonoBehaviour
 {
+    public void ShowGoal(OccupierGoal goal) {
+        textObj.text = goal.description;
+        checkMark.gameObject.SetActive(goal.completed);
+    }
     public Text textObj;
     public Image checkBackground;
     public Image checkMark;
-    public void SetText(string text) {
-        textObj.text = text;
-    }
-    public void SetCheck(bool presence) {
-        textObj.gameObject.SetActive(presence);
-    }
 }
