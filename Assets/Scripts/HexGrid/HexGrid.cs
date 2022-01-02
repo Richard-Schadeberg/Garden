@@ -8,14 +8,9 @@ public class HexGrid : MonoBehaviour {
 	public int width = 6;
 	public int height = 6;
 	public HexCell cellPrefab;
-	public HexImages spritePrefab;
-    HexMesh hexMesh;
-    HexCell[] cells;
-	Canvas gridCanvas;
+    public HexCell[] cells;
 	public CameraPose cameraPose;
 	void Awake () {
-		hexMesh = GetComponentInChildren<HexMesh>();
-		gridCanvas = GetComponentInChildren<Canvas>();
 		cells = new HexCell[height * width];
 		for (int z = 0, i = 0; z < height; z++) {
 			for (int x = 0; x < width; x++) {
@@ -23,12 +18,11 @@ public class HexGrid : MonoBehaviour {
 			}
 		}
 	}
+	public static HexGrid S;
     void Start () {
-		hexMesh.Triangulate(cells);
+		S = this;
 		cameraPose.placeCamera(PointsForCamera());
-	}
-	public void Triangulate() {
-		hexMesh.Triangulate(cells);
+		Load();
 	}
 	void CreateCell (int x, int z, int i) {
 		Vector3 position;	
@@ -37,12 +31,9 @@ public class HexGrid : MonoBehaviour {
 		position.z = z * (HexMetrics.outerRadius * 1.5f);
 
 		HexCell cell = cells[i] = Instantiate<HexCell>(cellPrefab);
-		cell.hexImage = Instantiate<HexImages>(spritePrefab);
-		cell.hexImage.transform.SetParent(cell.transform);
 		cell.transform.SetParent(transform, false);
 		cell.transform.localPosition = position;
 		cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, z);
-		cell.hexGrid = this;
 		SetCellNeighbours(cell,x,z,i);
 	}
 	void SetCellNeighbours(HexCell cell,int x,int z,int i) {
@@ -63,13 +54,6 @@ public class HexGrid : MonoBehaviour {
 				}
 			}
 		}
-	}
-	public HexCell GetCellAt (Vector3 position) {
-		position = transform.InverseTransformPoint(position);
-		HexCoordinates coordinates = HexCoordinates.FromPosition(position);
-		int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
-		HexCell cell = cells[index];
-		return cell;
 	}
 	Vector3[] PointsForCamera() {
 		List<Vector3> points = new List<Vector3>();
@@ -100,17 +84,21 @@ public class HexGrid : MonoBehaviour {
 		float cellWidth = 2f * HexMetrics.innerRadius;
 		return (width-0.5f) * cellWidth;
 	}
-	public void Save (BinaryWriter writer) {
-		for (int i = 0; i < cells.Length; i++) {
-			cells[i].Save(writer);
+	public void Save () {
+		string path = Path.Combine(Application.persistentDataPath, "test.map");
+		using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create))) {
+			for (int i = 0; i < cells.Length; i++) {
+				cells[i].Save(writer);
+			}
 		}
 	}
-
-	public void Load (BinaryReader reader) {
-		for (int i = 0; i < cells.Length; i++) {
-			cells[i].Load(reader);
+	public void Load () {
+		string path = Path.Combine(Application.persistentDataPath, "test.map");
+		using (BinaryReader reader = new BinaryReader(File.OpenRead(path))) {
+			for (int i = 0; i < cells.Length; i++) {
+				cells[i].Load(reader);
+			}
 		}
-		Triangulate();
 	}
 	public void RandomizeElevation() {
 		foreach (HexCell cell in cells) {
@@ -121,8 +109,7 @@ public class HexGrid : MonoBehaviour {
 			int elevate = (int)Math.Round(rand);
 			if (elevate < 0) elevate = 0;
 			if (elevate > GameConstants.maxElevation) elevate = GameConstants.maxElevation;
-			cell.cellState.elevation = elevate;
+			cell.SetElevation(elevate);
 		}
-		Triangulate();
 	}
 }

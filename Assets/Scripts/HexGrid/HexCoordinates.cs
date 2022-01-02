@@ -34,9 +34,6 @@ public struct HexCoordinates {
 		return "(" +
 			X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";
 	}
-	public string ToStringOnSeparateLines () {
-		return X.ToString() + "\n" + Y.ToString() + "\n" + Z.ToString();
-	}
 	public static HexCoordinates FromPosition (Vector3 position) {
 		float x = position.x / (HexMetrics.innerRadius * 2f);
 		float y = -x;
@@ -58,14 +55,6 @@ public struct HexCoordinates {
 				iZ = -iX - iY;
 			}
 		}
-
 		return new HexCoordinates(iX, iZ);
-	}
-	bool IsNeighbour(HexCoordinates neighbour) {
-		int dist=0;
-		dist += Math.Abs(neighbour.X - X);
-		dist += Math.Abs(neighbour.Y - Y);
-		dist += Math.Abs(neighbour.Z - Z);
-		return (dist<2);
 	}
 }

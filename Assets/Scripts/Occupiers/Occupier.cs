@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Occupier : MonoBehaviour
-{
+public class Occupier : MonoBehaviour {
     public string occupierName;
     public OccupierConditions conditions;
     public OccupierGoal[] goals;
