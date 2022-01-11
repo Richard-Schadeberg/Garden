@@ -6,17 +6,26 @@ using System.IO;
 public class HexCell : MonoBehaviour {
 	public HexCoordinates coordinates;
 	public CellState cellState;
-	HexImages hexImage;
+	public HexImages hexImage;
 	[SerializeField]
 	HexCell[] neighbors;
 	public void OnMouseDown() {
-		Debug.Log(coordinates);
+		if (cellState.Occupier is CellWaterSource) return;
+		MainUI.S.CellClicked(this);
 	}
 	public void SetOccupier(Occupier occupier) {
-		if (cellState.occupier!=null) {
-			Destroy(cellState.occupier);
+		ClearOccupier();
+		cellState.Occupier = occupier as CellOccupier;
+		cellState.Occupier.gameObject.transform.SetParent(gameObject.transform,false);
+		cellState.Occupier.hexCell = this;
+		hexImage.DisplayOccupier(occupier);
+	}
+	public void ClearOccupier() {
+		if (cellState.Occupier!=null) {
+			Destroy(cellState.Occupier.gameObject);
+			cellState.Occupier = null;
+			hexImage.DisplayOccupier(null);
 		}
-		cellState.occupier = (CellOccupier)occupier;
 	}
 	public HexCell GetNeighbor (HexDirection direction) {
 		return neighbors[(int)direction];
@@ -51,14 +60,20 @@ public class HexCell : MonoBehaviour {
 		cell.neighbors[(int)direction.Opposite()] = this;
 	}
 	public void Save (BinaryWriter writer) {
-		writer.Write(cellState.elevation);
+		writer.Write(cellState.Elevation);
 	}
 
 	public void Load (BinaryReader reader) {
 		SetElevation(reader.ReadInt32());
 	}
 	public void SetElevation(int elevation) {
-		cellState.elevation = elevation;
+		cellState.Elevation = elevation;
 		transform.position = new Vector3(transform.position.x,elevation * GameConstants.elevationDistance,transform.position.z);
+	}
+	public void FlagIncomplete() {
+		hexImage.FlagIncomplete();
+	}
+	public void FlagComplete() {
+		hexImage.FlagComplete();
 	}
 }

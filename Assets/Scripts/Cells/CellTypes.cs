@@ -13,28 +13,29 @@ public struct OccupierGoal {
 }
 [System.Serializable]
 public struct CellState {
-    public bool Valid;
+    public bool OccupierValid;
     public bool Water;
-    public bool Path;
-    public CellOccupier occupier;
-    public int elevation;
-    public Wetness wetness;
-    public Shadiness shadiness;
+    public bool WaterValid;
+    public CellOccupier Occupier;
+    public int Elevation;
+    public Wetness Wetness;
+    public Shadiness Shadiness;
 }
 [System.Serializable]
 public enum Wetness {
-    Dry,
-    Damp,
+    Water,
+    ColdWet,
     Wet,
-    HotDry,
-    ColdWet
+    Damp,
+    Dry,
+    HotDry
 }
 [System.Serializable]
 public enum Shadiness {
+    HotSunny,
     Sunny,
     Shaded,
     Dark,
-    HotSunny,
     ColdDark
 }
 [System.Serializable]

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class UIWater : UIOccupier
 {
+    public bool makesWater;
     public override void OnPlacement(HexCell cell) {
-        cell.cellState.Water = true;
+        cell.cellState.Water = makesWater;
     }
 }

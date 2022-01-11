@@ -10,6 +10,7 @@ public class HexGrid : MonoBehaviour {
 	public HexCell cellPrefab;
     public HexCell[] cells;
 	public CameraPose cameraPose;
+	public UIWaterSource sourceObj;
 	void Awake () {
 		cells = new HexCell[height * width];
 		for (int z = 0, i = 0; z < height; z++) {
@@ -23,6 +24,11 @@ public class HexGrid : MonoBehaviour {
 		S = this;
 		cameraPose.placeCamera(PointsForCamera());
 		Load();
+		CellEvaluation.EvaluateShadiness(this);
+		CellColour.ColourGrid(this);
+		HexCell source = cellAt(new HexCoordinates(3,5));
+		sourceObj.OnPlacement(source);
+		CellColour.ColourCell(source);
 	}
 	void CreateCell (int x, int z, int i) {
 		Vector3 position;	
@@ -62,8 +68,8 @@ public class HexGrid : MonoBehaviour {
 		corners[1] = corners[0] + new Vector3(0,0,hexgridHeight());
 		corners[2] = corners[0] + new Vector3(hexgridWidth(),0,0);
 		corners[3] = corners[0] + new Vector3(hexgridWidth(),0,hexgridHeight());
-		Vector3[] elevations = new Vector3[GameConstants.maxElevation+2];
-		for (int i = 0; i <= GameConstants.maxElevation+1; i++) {
+		Vector3[] elevations = new Vector3[GameConstants.maxElevation+3];
+		for (int i = 0; i <= GameConstants.maxElevation+2; i++) {
 			elevations[i] = new Vector3(0,i*GameConstants.elevationDistance,0);
 		}
 		Vector3[] hexCorners = HexMetrics.corners;
@@ -111,5 +117,9 @@ public class HexGrid : MonoBehaviour {
 			if (elevate > GameConstants.maxElevation) elevate = GameConstants.maxElevation;
 			cell.SetElevation(elevate);
 		}
+	}
+	public HexCell cellAt(HexCoordinates coordinates) {
+		int index = coordinates.X + coordinates.Z * width + coordinates.Z / 2;
+		return cells[index];
 	}
 }

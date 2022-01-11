@@ -116,11 +116,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888ea1e6c62905342905a49d850ddc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayObj: {fileID: 0}
   occupierName: Grass
   conditions:
     wetness: 0101010000
     shadiness: 0101000000
+  WetCold: 1
+  Wet: 1
+  Damp: 1
+  Dry: 1
+  DryHot: 1
+  SunnyHot: 1
+  Sunny: 1
+  Shaded: 1
+  Dark: 1
+  DarkCold: 1
+  goals: []
 --- !u!1 &9188671664400895851
 GameObject:
   m_ObjectHideFlags: 0
